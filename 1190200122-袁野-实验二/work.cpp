@@ -134,10 +134,10 @@ namespace Huffman{
 		} 
 	} *root;
 	
-	priority_queue <node> q;
+	priority_queue <node> q; // 定义一个堆进行堆优化 
 	
 	node* MakeHuffman(){
-		map<char,int>::iterator iter;
+		map<char,int>::iterator iter; // 用map来存字符 
 		printf("各字母出现频率为：\n");
 		for (iter=t.begin(); iter != t.end(); iter++) q.push(*new node(iter->first,iter->second)),printf("%c: %d\n",iter->first,iter->second);
 		while (!q.empty())
@@ -147,14 +147,14 @@ namespace Huffman{
 				node* ret = new node;
 				*ret = q.top();
 				return ret;
-			}
+			}// 合并到只剩一个节点时候该节点为根节点 
 			node* x = new node; *x = q.top(); q.pop();
 			node* y = new node; *y = q.top(); q.pop();
 			q.push(*new node(x->weight+y->weight,x,y));
 		}
 	}
 	
-	void dfs(node* now,string S){
+	void dfs(node* now,string S){ // 对哈夫曼树进行深搜得到每个字符对应的哈夫曼编码 
 		if (now->LeftChild == NULL)
 		{
 			s[now->c] = S;
@@ -218,10 +218,10 @@ int main(){
 	printf("输入哈夫曼编码进制：");
 	scanf("%d",&K);
 	freopen("text.in","r",stdin);
-	read();
-	fclose(stdin);
+	read();//读取文本 
+	fclose(stdin);//关闭读入文件 
 	if (K==2) Huffman::Main();
-	else if (K>2) KthHuffman::Main();
+	else if (K>2) KthHuffman::Main();//确定进制 
 	else printf("输入有误"); 
 	return 0; 
 }
